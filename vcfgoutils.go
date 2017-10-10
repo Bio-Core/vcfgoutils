@@ -2,7 +2,6 @@ package vcfgoutils
 
 import (
 	"encoding/json"
-	"fmt"
 	"log"
 	"os"
 
@@ -10,6 +9,8 @@ import (
 	"github.com/nats-io/nats"
 )
 
+// SimpleGermlineMutation
+// A general struct containing the desired information from a VCF file.
 type SimpleGermlineMutation struct {
 	Chromosome   string
 	Position     uint64
@@ -21,11 +22,14 @@ type SimpleGermlineMutation struct {
 	Coverage     int
 }
 
-func ConvertVcfToJson(variant *vcfgo.Variant) SimpleGermlineMutation {
+// ConvertVcfToJSON
+// Convert a VCF data into JSON format for streaming using
+// NATS
+func ConvertVcfToJSON(variant *vcfgo.Variant) SimpleGermlineMutation {
 	altdepths, _ := variant.Samples[0].AltDepths()
 
 	// JSON format for variant call information
-	simple_variant := SimpleGermlineMutation{
+	simpleVariant := SimpleGermlineMutation{
 		variant.Chromosome,
 		variant.Pos,
 		variant.Reference,
@@ -36,12 +40,15 @@ func ConvertVcfToJson(variant *vcfgo.Variant) SimpleGermlineMutation {
 		altdepths[0],
 	}
 
-	return simple_variant
+	return simpleVariant
 }
 
-func SendVcfToNatsAsJson(urls *string, vcf_file *string) {
+// SendVcfToNatsAsJSON
+// A wrapper function for opening a VCF file, converting to JSON format,
+// and transmitting to a NATS server.
+func SendVcfToNatsAsJSON(urls *string, vcfFile *string) {
 	// setup the nats connection
-	fmt.Println("Connecting to server: ", *urls)
+	log.Println("Connecting to server: ", *urls)
 	nc, err := nats.Connect(*urls)
 	if err != nil {
 		log.Fatalf("Cannot connect: %v\n", err)
@@ -50,7 +57,7 @@ func SendVcfToNatsAsJson(urls *string, vcf_file *string) {
 
 	// prepare the VCF file, read through each entry and parse out the relevant information
 	// and stream the data to the NATS server
-	f, _ := os.Open(*vcf_file)
+	f, _ := os.Open(*vcfFile)
 	rdr, err := vcfgo.NewReader(f, false)
 	if err != nil {
 		panic(err)
@@ -61,8 +68,8 @@ func SendVcfToNatsAsJson(urls *string, vcf_file *string) {
 			break
 		}
 
-		simple_variant := ConvertVcfToJson(variant)
-		b, _ := json.Marshal(simple_variant)
+		simpleVariant := ConvertVcfToJSON(variant)
+		b, _ := json.Marshal(simpleVariant)
 
 		// Send the data to the NATS server
 		nc.Publish("queue1", []byte(b))
