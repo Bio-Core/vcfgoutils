@@ -2,12 +2,10 @@ package vcfgoutils
 
 import (
 	"encoding/json"
-	"fmt"
 	"os"
 	"testing"
 
 	"github.com/brentp/vcfgo"
-	"gitlab.com/uhn/vcfgoutils"
 )
 
 func TestConvertVcfToJSON(t *testing.T) {
@@ -22,8 +20,12 @@ func TestConvertVcfToJSON(t *testing.T) {
 		if variant == nil {
 			break
 		}
-		simpleVariant := vcfgoutils.ConvertVcfToJSON(variant)
-		b, _ := json.Marshal(simpleVariant)
-		fmt.Println(b)
+		simpleVariant := ConvertVcfToJSON(variant)
+		variantJSON, _ := json.Marshal(simpleVariant)
+		expectedString := "{\"Chromosome\":\"chr4\",\"Position\":1806181,\"Reference\":\"C\",\"Alternate\":\"T\",\"Quality\":256,\"Filter\":\"PASS\",\"AllelicDepth\":203,\"Coverage\":25}"
+		// Compare JSON strings to see if they are the same
+		if expectedString != string(variantJSON) {
+			t.Fatalf("Expected JSON string does not equal actual JSON string...")
+		}
 	}
 }
