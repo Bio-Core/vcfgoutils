@@ -9,9 +9,9 @@ import (
 	"github.com/nats-io/nats"
 )
 
-// SimpleGermlineMutation
+// SimpleMutation
 // A general struct containing the desired information from a VCF file.
-type SimpleGermlineMutation struct {
+type SimpleMutation struct {
 	Chromosome   string
 	Position     uint64
 	Reference    string
@@ -25,11 +25,11 @@ type SimpleGermlineMutation struct {
 // ConvertVcfToJSON
 // Convert a VCF data into JSON format for streaming using
 // NATS
-func ConvertVcfToJSON(variant *vcfgo.Variant) SimpleGermlineMutation {
+func ConvertVcfToJSON(variant *vcfgo.Variant) SimpleMutation {
 	altdepths, _ := variant.Samples[0].AltDepths()
 
 	// JSON format for variant call information
-	simpleVariant := SimpleGermlineMutation{
+	simpleVariant := SimpleMutation{
 		variant.Chromosome,
 		variant.Pos,
 		variant.Reference,
