@@ -3,9 +3,11 @@ package vcfgoutils
 import (
 	"encoding/json"
 	"os"
+	"strings"
 	"testing"
 
 	"github.com/brentp/vcfgo"
+	"github.com/stretchr/testify/assert"
 )
 
 func TestConvertVcfToJSON(t *testing.T) {
@@ -22,10 +24,20 @@ func TestConvertVcfToJSON(t *testing.T) {
 		}
 		simpleVariant := ConvertVcfToJSON(variant)
 		variantJSON, _ := json.Marshal(simpleVariant)
-		expectedString := "{\"Chromosome\":\"chr4\",\"Position\":1806181,\"Reference\":\"C\",\"Alternate\":\"T\",\"Quality\":256,\"Filter\":\"PASS\",\"AllelicDepth\":203,\"Coverage\":25}"
-		// Compare JSON strings to see if they are the same
-		if expectedString != string(variantJSON) {
-			t.Fatalf("Expected JSON string does not equal actual JSON string...")
-		}
+		expectedJSON := []string{
+			"{\"Chromosome\":\"chr4\"",
+			"\"Position\":1806181",
+			"\"Reference\":\"C\"",
+			"\"Alternate\":\"T\"",
+			"\"Quality\":256",
+			"\"Filter\":\"PASS\"",
+			"\"AllelicDepth\":203",
+			"\"Coverage\":25}"}
+		expectedJSONString := strings.Join(expectedJSON, ",")
+		assert.Equal(
+			t,
+			string(variantJSON),
+			expectedJSONString,
+			"The actual and expected JSON strings should be the same.")
 	}
 }
