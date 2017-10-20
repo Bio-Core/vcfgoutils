@@ -11,7 +11,7 @@ import (
 )
 
 func TestConvertVcfToJSON(t *testing.T) {
-	vcfFile := "examples/vcfgoutils_test.vcf"
+	vcfFile := "testfiles/vcfgoutils_test.vcf"
 	f, _ := os.Open(vcfFile)
 	rdr, err := vcfgo.NewReader(f, false)
 	if err != nil {
