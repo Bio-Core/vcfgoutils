@@ -5,7 +5,7 @@ vcfgoutils - a Go library for handling Variant Call Format (VCF) files
 files into a different format for downstream analysis.
 
 ### Prerequisites
-
+github.com/brentp/vcfgo
 
 ### Installing
 This package can be downloaded from github.com using:
