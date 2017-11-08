@@ -42,10 +42,10 @@ func main() {
 
 	// open a connection to the MongoDB
 	session, err := mgo.Dial(*mongoDbPtr)
-	log.Println("MongoDB connection established on", *mongoDbPtr, "...")
 	if err != nil {
 		log.Fatal(err)
 	}
+	log.Println("MongoDB connection established on", *mongoDbPtr, "...")
 	session.SetMode(mgo.Monotonic, true)
 	mongoDatabase := "test"
 	mongoCollection := "simplemutation"
