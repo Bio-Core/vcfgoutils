@@ -15,6 +15,7 @@ import (
 // A function that returns the usage of the program.
 func usage() {
 	log.Fatalf("Usage: vcf_to_mongodb [-s nats://<servername>:<port> --mongodb <mongodb-ip>:<mongdb-port>] <subject> \n")
+	flag.PrintDefaults()
 }
 
 func printMsg(m *nats.Msg, i int) {
@@ -57,6 +58,7 @@ func main() {
 		if err == nil {
 			vcfgoutils.InsertVCFIntoMongoDB(session, simpleSubMutation, mongoDatabase, mongoCollection)
 		}
+		printMsg(msg, i)
 	})
 	nc.Flush()
 	if err := nc.LastError(); err != nil {
