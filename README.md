@@ -5,10 +5,16 @@ vcfgoutils - a Go library for handling Variant Call Format (VCF) files
 files into a different format for downstream analysis.
 
 ### Prerequisites
-github.com/brentp/vcfgo
+The following go packages are required to run the vcfgoutils suite of tools.
+* github.com/brentp/vcfgo
+* github.com/nats-io/nats
+* gopkg.in/mgo.v2
+
+In addition, tools are available to upload converted VCF data to a MongoDB
+server.
 
 ### Installing
-This package can be downloaded from github.com using:
+This package can be downloaded from gitlab.com using:
 
 ```
 go get gitlab.com/uhn/vcfgoutils
