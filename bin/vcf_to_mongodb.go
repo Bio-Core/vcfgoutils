@@ -7,7 +7,7 @@ import (
 	"runtime"
 
 	"github.com/nats-io/go-nats"
-	"gitlab.com/uhn/vcfgoutils"
+	"github.com/bio-core/vcfgoutils"
 	mgo "gopkg.in/mgo.v2"
 )
 
