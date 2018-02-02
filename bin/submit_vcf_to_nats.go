@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"gitlab.com/uhn/vcfgoutils"
+	"github.com/bio-core/vcfgoutils"
 )
 
 func usage() {
