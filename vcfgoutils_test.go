@@ -31,8 +31,10 @@ func TestConvertVcfToJSON(t *testing.T) {
 			"\"Alternate\":\"T\"",
 			"\"Quality\":256",
 			"\"Filter\":\"PASS\"",
-			"\"AllelicDepth\":203",
-			"\"Coverage\":25}"}
+			"\"Genotype\":\"0/1\"",
+			"\"FilteredDepth\":203",
+			"\"RefDepth\":178",
+			"\"AltDepth\":25}"}
 		expectedJSONString := strings.Join(expectedJSON, ",")
 		assert.Equal(
 			t,
