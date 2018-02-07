@@ -2,6 +2,7 @@ vcfgoutils - a Go library for handling Variant Call Format (VCF) files
 ===
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/bio-core/vcfgoutils)](https://goreportcard.com/report/github.com/bio-core/vcfgoutils)
+[![Build Status](https://travis-ci.org/Bio-Core/vcfgoutils.svg?branch=master)](https://travis-ci.org/Bio-Core/vcfgoutils)
 
 `vcfgoutils` is a `golang` package used to import, process and convert VCF
 files into a different format for downstream analysis.
