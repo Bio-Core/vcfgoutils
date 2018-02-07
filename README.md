@@ -30,3 +30,6 @@ go build
 go install
 ```
 
+### License
+MIT License
+
