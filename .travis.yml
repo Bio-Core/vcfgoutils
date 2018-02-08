@@ -7,6 +7,5 @@ install:
     - go get github.com/brentp/vcfgo
     - go get github.com/nats-io/nats
     - go get gopkg.in/mgo.v2
+    - go get ./...
 
-script:
-    - go test ./...
