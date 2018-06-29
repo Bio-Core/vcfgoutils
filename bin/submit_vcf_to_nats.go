@@ -17,6 +17,7 @@ func main() {
 	// setup the command line arguments
 	urlPtr := flag.String("s", "", "The NATS server URLs (separated by comma) (required)")
 	vcfPtr := flag.String("f", "", "The VCF file to transmit (required)")
+	subjectPtr := flag.String("u", "queue1", "The NATS subject for subscribing (default: queue1)")
 	log.SetFlags(0)
 	flag.Usage = usage
 	flag.Parse()
@@ -27,6 +28,6 @@ func main() {
 		fmt.Println("Missing argument -f")
 		flag.Usage()
 	} else {
-		vcfgoutils.SendVcfToNatsAsJSON(urlPtr, vcfPtr)
+		vcfgoutils.SendVcfToNatsAsJSON(urlPtr, vcfPtr, subjectPtr)
 	}
 }
