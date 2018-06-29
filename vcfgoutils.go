@@ -54,7 +54,7 @@ func ConvertVcfToJSON(variant *vcfgo.Variant) SimpleMutation {
 
 // SendVcfToNatsAsJSON is a wrapper function for opening a VCF file,
 // converting to JSON format and transmitting to a NATS server.
-func SendVcfToNatsAsJSON(urls *string, vcfFile *string) {
+func SendVcfToNatsAsJSON(urls *string, vcfFile *string, subject *string) {
 	// setup the nats connection
 	log.Println("Connecting to server: ", *urls)
 	nc, err := nats.Connect(*urls)
@@ -82,7 +82,7 @@ func SendVcfToNatsAsJSON(urls *string, vcfFile *string) {
 		b, _ := json.Marshal(simpleVariant)
 
 		// Send the data to the NATS server
-		nc.Publish("queue1", []byte(b))
+		nc.Publish(*subject, []byte(b))
 		nc.Flush()
 	}
 }
