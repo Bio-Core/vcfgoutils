@@ -6,8 +6,8 @@ import (
 	"log"
 	"runtime"
 
-	"github.com/nats-io/go-nats"
 	"github.com/bio-core/vcfgoutils"
+	"github.com/nats-io/go-nats"
 	mgo "gopkg.in/mgo.v2"
 )
 
@@ -26,6 +26,8 @@ func main() {
 	var urls = flag.String("s", nats.DefaultURL, "The nats server URLs (separated by comma)")
 	var showTime = flag.Bool("t", false, "Display timestamps")
 	var mongoDbPtr = flag.String("mongodb", "localhost:27017", "The MongoDB hostname/IP and port")
+	var database = flag.String("database", "vcfdb", "The MongoDB database name to store data to")
+	var collection = flag.String("collection", "mutations", "The collection name to store data to")
 
 	log.SetFlags(0)
 	flag.Usage = usage
@@ -48,8 +50,8 @@ func main() {
 	}
 	log.Println("MongoDB connection established on", *mongoDbPtr, "...")
 	session.SetMode(mgo.Monotonic, true)
-	mongoDatabase := "test"
-	mongoCollection := "simplemutation"
+	mongoDatabase := *database
+	mongoCollection := *collection
 	subj, i := args[0], 0
 	var simpleSubMutation vcfgoutils.SimpleMutation
 	nc.Subscribe(subj, func(msg *nats.Msg) {

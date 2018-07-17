@@ -3,10 +3,8 @@ language: go
 go:
     - 1.9.x
 
-install:
+before_install:
     - go get github.com/brentp/vcfgo
     - go get github.com/nats-io/nats
     - go get gopkg.in/mgo.v2
 
-script:
-    - go test ./...
